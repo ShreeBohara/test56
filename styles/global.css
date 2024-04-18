@@ -78,6 +78,7 @@ form{
   display: flex;
   flex-direction: column;
   padding: 100px;
+  padding-bottom: 0;
 }
 
 select{
@@ -107,4 +108,34 @@ button{
 
 .clearButton {
   border-color: red;
+}
+
+.ResponseContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.ResponseSet{
+    width: 80%;
+    padding: 50px;
+    min-height: 100px;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;  
+}
+.ResponseTile{
+  width: 300px;
+  min-height: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.ResponseTile p{
+  color: #121212;
 }

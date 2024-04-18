@@ -9,6 +9,9 @@ import axios from 'axios';
 
 export default function HomePage( {username} ) {
 
+
+    const [Response, setResponse] = useState(null);
+
     const [selectedOption, setSelectedOption] = useState('');
     const [textValue, setTextValue] = useState('');
   
@@ -29,6 +32,7 @@ export default function HomePage( {username} ) {
 
         try {
             const response = await axios.post('http://localhost:5000/predict', {selectedOption,textValue});
+            setResponse(response.data);
             console.log('Response:', response.data); // Assuming the response contains data
             // Handle response data as needed
           } catch (error) {
@@ -51,36 +55,48 @@ export default function HomePage( {username} ) {
         <Layout pageTitle="Home">
         {username ?
         <>
-            <h2>Hi {username}</h2>
-            <Link href="/profile">Profile</Link><br/>
-            <Link href="/api/logout">Logout</Link>
-            <Link href="/model/front">Model</Link>
+          <h2>Hi {username}</h2>
+          <Link href="/profile">Profile</Link><br/>
+          <Link href="/api/logout">Logout</Link>
+          <Link href="/model/front">Model</Link>
 
-            <div className="container">
-        <form id="myUniqueFormId" onSubmit={handleSubmit}>
+          <div className="container">
+            <form id="myUniqueFormId" onSubmit={handleSubmit}>
 
-          <select value={selectedOption} onChange={handleDropdownChange}>
-            <option value="">Select an option</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Mechanical">Mechanical</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Civil">Civil</option>
-          </select>
+              <select value={selectedOption} onChange={handleDropdownChange}>
+                <option value="">Select an option</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Civil">Civil </option>
+              </select>
 
-          <textarea
-            value={textValue}
-            onChange={handleTextareaChange}
-            placeholder="Enter context here"
-          />
+              <textarea
+                value={textValue}
+                onChange={handleTextareaChange}
+                placeholder="Enter context here"
+              />
 
-          <div>
-            <button type="submit">Submit</button>
-            <button className="clearButton" onClick={clearClicked}>Clear</button>
+              <div>
+                <button type="submit">Submit</button>
+                <button className="clearButton" onClick={clearClicked}>Clear</button>
+              </div>
+            </form>
+            <div className="ResponseContainer">
+              <div className="ResponseSet">
+                {
+                  Response && Response.prediction.map((pred, index) => (
+                    <div className="ResponseTile">
+                      <p><strong>Question : </strong>{pred.question}</p>
+                      <p><strong>Answer : </strong>{pred.answer}</p>
+                    </div>
+                  ))
+                }
+
+              </div>
+             
+            </div>
           </div>
-
-          
-        </form>
-      </div>
 
 
         </>: 

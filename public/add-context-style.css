@@ -2,6 +2,7 @@ form{
     display: flex;
     flex-direction: column;
     padding: 100px;
+    padding-bottom: 0;
 }
 
 select{
@@ -31,4 +32,12 @@ button{
 
 .clearButton {
     border-color: red;
+}
+.ResponseContainer{
+    width: 80%;
+    height: 500px;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 5px;
+    background-color: white;
 }
