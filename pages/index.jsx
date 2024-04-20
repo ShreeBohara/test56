@@ -5,15 +5,38 @@ import Layout from '../components/layout'
 import { getCookie } from 'cookies-next';
 import Link from 'next/link'
 import axios from 'axios';
+import FileUpload from "./api/FileUpload";
+import Dropdown from "./Dropdown";
+
+const coreSubjectsData = {
+  'Computer Science': ['Algorithms', 'Data Structures', 'Computer Networks'],
+  'Mechanical Engineering': ['Thermodynamics', 'Mechanics', 'Fluid Dynamics'],
+  'Civil Engineering': ['Thermodynamics', 'Mechanics', 'Fluid Dynamics'],
+  'Electric Engineering': ['Power System', 'Electrical Machine', 'Control Systems, Digital Signal Processing']
+  
+};
+
+const topicsData = {
+  'Algorithms': ['Sorting', 'Searching', 'Graph Algorithms'],
+  'Data Structures': ['Arrays', 'Linked Lists', 'Trees'],
+};
 
 
 export default function HomePage( {username} ) {
-
 
     const [Response, setResponse] = useState(null);
 
     const [selectedOption, setSelectedOption] = useState('');
     const [textValue, setTextValue] = useState('');
+    const [discipline, setDiscipline] = useState('');
+    const [coreSubject, setCoreSubject] = useState('');
+    const [topic, setTopic] = useState('');
+    const [fileContent, setFileContent] = useState('');
+    const handleDisciplineChange = (value) => {
+      setDiscipline(value);
+      setCoreSubject('');
+      setTopic('');
+  };
   
     const handleDropdownChange = (event) => {
       setSelectedOption(event.target.value);
@@ -22,6 +45,15 @@ export default function HomePage( {username} ) {
     const handleTextareaChange = (event) => {
       setTextValue(event.target.value);
     };
+    const handleFileUpload = async (file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        setFileContent(content);
+        console.log("File Content:", fileContent);
+      };
+      reader.readAsText(file);
+    };
   
   
     const handleSubmit = async (event) => {
@@ -29,9 +61,18 @@ export default function HomePage( {username} ) {
         console.log('Event', event);
         console.log('drop', selectedOption);
         console.log('text', textValue);
+        console.log('file'+ fileContent);
+
+        var final = "";
+        if(textValue == ""){
+          final = fileContent;
+        }else{
+          final = textValue
+        }
+        
 
         try {
-            const response = await axios.post('http://localhost:5000/predict', {selectedOption,textValue});
+            const response = await axios.post('http://localhost:5000/predict', {selectedOption,final});
             setResponse(response.data);
             console.log('Response:', response.data); // Assuming the response contains data
             // Handle response data as needed
@@ -46,6 +87,10 @@ export default function HomePage( {username} ) {
       console.log('Text area value:', textValue);
     };
   
+  
+    
+     
+
     const clearClicked = () => {
       setSelectedOption('');
       setTextValue('');
@@ -58,10 +103,35 @@ export default function HomePage( {username} ) {
           <h2>Hi {username}</h2>
           <Link href="/profile">Profile</Link><br/>
           <Link href="/api/logout">Logout</Link>
-          <Link href="/model/front">Model</Link>
+          
 
           <div className="container">
             <form id="myUniqueFormId" onSubmit={handleSubmit}>
+
+            <div className="App">
+            <Dropdown
+                label="Discipline"
+                options={['Computer Science', 'Mechanical Engineering']}
+                value={discipline}
+                onChange={handleDisciplineChange}
+            />
+            {discipline && (
+                <Dropdown
+                    label="Core Subject"
+                    options={coreSubjectsData[discipline]}
+                    value={coreSubject}
+                    onChange={(value) => setCoreSubject(value)}
+                />
+            )}
+            {coreSubject && (
+                <Dropdown
+                    label="Topic"
+                    options={topicsData[coreSubject]}
+                    value={topic}
+                    onChange={(value) => setTopic(value)}
+                />
+            )}
+        </div>
 
               <select value={selectedOption} onChange={handleDropdownChange}>
                 <option value="">Select an option</option>
@@ -76,6 +146,11 @@ export default function HomePage( {username} ) {
                 onChange={handleTextareaChange}
                 placeholder="Enter context here"
               />
+
+              <div>
+                    <h1>OR</h1>
+                    <FileUpload handleFileUpload={handleFileUpload} />
+              </div>
 
               <div>
                 <button type="submit">Submit</button>
