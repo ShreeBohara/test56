@@ -140,3 +140,61 @@ button{
   color: #121212;
 }
 
+.dropdownContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Dropdown{
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+}
+.Dropdown select{
+  margin: 20px;
+  margin-bottom: 30px;
+}
+.Dropdown label{
+  padding-left: 25px;
+}
+.headerContainer{
+  display: flex;
+  justify-content: space-between;
+}
+.headerContainer h2{
+  padding-left: 40px;
+  
+}
+.header{
+  gap: 20px;
+  display: flex;
+  padding: 25px;
+}
+.gradient_blue-purple {
+  background: linear-gradient(90deg, #4ca5ff 0%, #b573f8 100%);
+}
+
+.selectorButton{
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.5;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  gap: 0.5rem;
+  overflow: auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.additional-style {
+  white-space: nowrap;
+  border-radius: 0.5rem; /* Assuming default border-radius */
+  padding-left: 2rem; /* Assuming default padding */
+  padding-right: 2rem; /* Assuming default padding */
+  padding-top: 0.625rem; /* 2.5 / 4 */
+  padding-bottom: 0.625rem; /* 2.5 / 4 */
+  text-transform: capitalize;
+  width: fit-content;
+}

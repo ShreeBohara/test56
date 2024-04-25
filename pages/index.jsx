@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react";
-
 import Layout from '../components/layout'
 import { getCookie } from 'cookies-next';
 import Link from 'next/link'
@@ -22,20 +21,30 @@ const topicsData = {
 };
 
 
+const links = ['Practice Questions', 'Question Generator'];
+
+
+
 export default function HomePage( {username} ) {
 
-    const [Response, setResponse] = useState(null);
+  const [Response, setResponse] = useState(null);
 
-    const [selectedOption, setSelectedOption] = useState('');
-    const [textValue, setTextValue] = useState('');
-    const [discipline, setDiscipline] = useState('');
-    const [coreSubject, setCoreSubject] = useState('');
-    const [topic, setTopic] = useState('');
-    const [fileContent, setFileContent] = useState('');
-    const handleDisciplineChange = (value) => {
-      setDiscipline(value);
-      setCoreSubject('');
-      setTopic('');
+  const [active, setactive] = useState('Question Generator');
+  const handleFilter = (link) => {
+    setactive(link);
+  }
+
+  const [selectedOption, setSelectedOption] = useState('');
+  const [textValue, setTextValue] = useState('');
+  const [discipline, setDiscipline] = useState('');
+  const [coreSubject, setCoreSubject] = useState('');
+  const [topic, setTopic] = useState('');
+  const [fileContent, setFileContent] = useState('');
+
+  const handleDisciplineChange = (value) => {
+    setDiscipline(value);
+    setCoreSubject('');
+    setTopic('');
   };
   
     const handleDropdownChange = (event) => {
@@ -80,16 +89,9 @@ export default function HomePage( {username} ) {
             console.error('Error:', error);
             // Handle errors if the request fails
           }
-
-
-      
       console.log('Dropdown value:', selectedOption);
       console.log('Text area value:', textValue);
     };
-  
-  
-    
-     
 
     const clearClicked = () => {
       setSelectedOption('');
@@ -100,81 +102,95 @@ export default function HomePage( {username} ) {
         <Layout pageTitle="Home">
         {username ?
         <>
-          <h2>Hi {username}</h2>
-          <Link href="/profile">Profile</Link><br/>
-          <Link href="/api/logout">Logout</Link>
-          
-
-          <div className="container">
-            <form id="myUniqueFormId" onSubmit={handleSubmit}>
-
-            <div className="App">
-            <Dropdown
-                label="Discipline"
-                options={['Computer Science', 'Mechanical Engineering']}
-                value={discipline}
-                onChange={handleDisciplineChange}
-            />
-            {discipline && (
-                <Dropdown
-                    label="Core Subject"
-                    options={coreSubjectsData[discipline]}
-                    value={coreSubject}
-                    onChange={(value) => setCoreSubject(value)}
-                />
-            )}
-            {coreSubject && (
-                <Dropdown
-                    label="Topic"
-                    options={topicsData[coreSubject]}
-                    value={topic}
-                    onChange={(value) => setTopic(value)}
-                />
-            )}
-        </div>
-
-              <select value={selectedOption} onChange={handleDropdownChange}>
-                <option value="">Select an option</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Mechanical">Mechanical</option>
-                <option value="Electrical">Electrical</option>
-                <option value="Civil">Civil </option>
-              </select>
-
-              <textarea
-                value={textValue}
-                onChange={handleTextareaChange}
-                placeholder="Enter context here"
-              />
-
-              <div>
-                    <h1>OR</h1>
-                    <FileUpload handleFileUpload={handleFileUpload} />
-              </div>
-
-              <div>
-                <button type="submit">Submit</button>
-                <button className="clearButton" onClick={clearClicked}>Clear</button>
-              </div>
-            </form>
-            <div className="ResponseContainer">
-              <div className="ResponseSet">
-                {
-                  Response && Response.prediction.map((pred, index) => (
-                    <div className="ResponseTile">
-                      <p><strong>Question : </strong>{pred.question}</p>
-                      <p><strong>Answer : </strong>{pred.answer}</p>
-                    </div>
-                  ))
-                }
-
-              </div>
-             
+          <div className="headerContainer">
+            <h2>Hi {username}</h2>
+            <div className="header">
+              <Link href="/profile">Profile</Link><br/>
+              <Link href="/api/logout">Logout</Link>
             </div>
           </div>
 
+          <ul className="text-white-800 body-text no-scrollbar flex w-full max-w-full gap-2 overflow-auto py-12 sm:max-w-2xl">
+              {links.map((link) => (
+                  <button 
+                  key={link}
+                  onClick={() => {handleFilter(link)}}
+                  className={`${active === link ? 'gradient_blue-purple' : ''} additional-style`}
+                  >
+                      {link}
+                  </button>
+              ))}
+          </ul>
+          {
+            active === 'Question Generator' ?
+            <>
+              <div className="container">
+                <form id="myUniqueFormId" onSubmit={handleSubmit}>
+                  <textarea
+                    value={textValue}
+                    onChange={handleTextareaChange}
+                    placeholder="Enter context here"
+                  />
 
-        </>: 
+                  <div>
+                        <h1>OR</h1>
+                        <FileUpload handleFileUpload={handleFileUpload} />
+                  </div>
+
+                  <div>
+                    <button type="submit">Submit</button>
+                    <button className="clearButton" onClick={clearClicked}>Clear</button>
+                  </div>
+                </form>
+
+                <div className="ResponseContainer">
+                  <div className="ResponseSet">
+                    {
+                      Response && Response.prediction.map((pred, index) => (
+                        <div className="ResponseTile">
+                          <p><strong>Question : </strong>{pred.question}</p>
+                          <p><strong>Answer : </strong>{pred.answer}</p>
+                        </div>
+                      ))
+                    }
+
+                  </div>
+                </div>
+              </div>  
+            </> :
+            <>
+            {/* practice question */}
+            <div className="dropdownContainer">
+                    <Dropdown
+                        label="Discipline"
+                        options={['Computer Science', 'Mechanical Engineering']}
+                        value={discipline}
+                        onChange={handleDisciplineChange}
+                    />
+                    {discipline && (
+                        <Dropdown
+                            label="Core Subject"
+                            options={coreSubjectsData[discipline]}
+                            value={coreSubject}
+                            onChange={(value) => setCoreSubject(value)}
+                        />
+                    )}
+                    {coreSubject && (
+                        <Dropdown
+                            label="Topic"
+                            options={topicsData[coreSubject]}
+                            value={topic}
+                            onChange={(value) => setTopic(value)}
+                        />
+                    )}
+                  </div>
+            </>
+          }
+          
+          
+
+          
+        </>:
         <>
             <h2>Log in</h2>
             <Link href="/login">Login</Link><br/>
