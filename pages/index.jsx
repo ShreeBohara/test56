@@ -18,7 +18,7 @@ const coreSubjectsData = {
 
 const topicsData = {
   'Algorithms': ['Sorting', 'Searching', 'Graph Algorithms'],
-  'Data Structures': ['Arrays', 'Linked Lists', 'Trees'],
+  'Data Structures': ['Arra    ys', 'Linked Lists', 'Trees'],
 };
 
 
