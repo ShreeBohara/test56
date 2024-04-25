@@ -93,6 +93,25 @@ export default function HomePage( {username} ) {
       console.log('Text area value:', textValue);
     };
 
+    const getPractiseQuestions = async (event) => {
+      event.preventDefault()
+      console.log('Event', event);
+      console.log('discipline', discipline);
+      console.log('coreSubject', coreSubject);
+      console.log('topic'+ topic);
+
+      try {
+        const response = await axios.post('http://localhost:5000/practice', {discipline,coreSubject,topic});
+        setResponse(response.data);
+        console.log('Response P:', response.data); // Assuming the response contains data
+        // Handle response data as needed
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle errors if the request fails
+      }
+
+    }
+
     const clearClicked = () => {
       setSelectedOption('');
       setTextValue('');
@@ -163,7 +182,7 @@ export default function HomePage( {username} ) {
             <div className="dropdownContainer">
                     <Dropdown
                         label="Discipline"
-                        options={['Computer Science', 'Mechanical Engineering']}
+                        options={['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Electronic Engineering']}
                         value={discipline}
                         onChange={handleDisciplineChange}
                     />
@@ -183,6 +202,7 @@ export default function HomePage( {username} ) {
                             onChange={(value) => setTopic(value)}
                         />
                     )}
+                    <button type="submit" onClick={getPractiseQuestions}>Submit</button>
                   </div>
             </>
           }
