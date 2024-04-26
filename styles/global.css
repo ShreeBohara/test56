@@ -81,6 +81,12 @@ form{
   padding-bottom: 0;
 }
 
+.inputContextContainer{
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
 select{
   width: 200px;
   margin: 50px;
@@ -95,6 +101,7 @@ textarea{
   border-width: 2px;
   height: 200px;
   border-radius: 10px;
+  width: 400px;
 }
 button{
   margin: 20px;
@@ -104,6 +111,9 @@ button{
   width: 100px;
   border-radius: 5px;
   margin-left: 0;
+}
+.OR{
+  padding: 40px;
 }
 
 .clearButton {

@@ -27,9 +27,22 @@ const links = ['Practice Questions', 'Question Generator'];
 
 export default function HomePage( {username} ) {
 
+  const data = [
+        {"Question": "What is statics?", "Answer": "Statics is the branch of mechanics that deals with forces acting on bodies at rest or in equilibrium."},
+        {"Question": "What are the fundamental principles of statics?", "Answer": "The fundamental principles of statics include the equilibrium of forces, the concept of moments, and the conditions for stability."},
+        {"Question": "What is the difference between static and dynamic forces?", "Answer": "Static forces are those that do not change over time, while dynamic forces vary with time."},
+        {"Question": "What is the importance of statics in structural engineering?", "Answer": "Statics is essential for analyzing the forces and stresses acting on structures to ensure they remain stable and safe."},
+        {"Question": "What is meant by the term 'equilibrium' in statics?", "Answer": "Equilibrium refers to the state where the sum of all forces and moments acting on a body is zero, resulting in no net movement or rotation."},
+        {"Question": "How do you calculate the moment of a force?", "Answer": "The moment of a force about a point is calculated by multiplying the magnitude of the force by the perpendicular distance from the point to the line of action of the force."},
+        {"Question": "What are the types of equilibrium?", "Answer": "The types of equilibrium are static equilibrium, where the body is at rest, and dynamic equilibrium, where the body moves at a constant velocity."},
+        {"Question": "What is the principle of transmissibility in statics?", "Answer": "The principle of transmissibility states that a force acting on a body can be moved along its line of action without changing its effect on the body's equilibrium."},
+        {"Question": "How do you determine the reactions at supports in statics?", "Answer": "The reactions at supports are determined by applying the equations of equilibrium to the entire structure or its individual components."},
+        {"Question": "What is the importance of free-body diagrams in statics?", "Answer": "Free-body diagrams are used to visualize and analyze the forces acting on a body or structure, making it easier to solve equilibrium problems."}
+    ];
+
   const [Response, setResponse] = useState(null);
 
-  const [active, setactive] = useState('Question Generator');
+  const [active, setactive] = useState('Practice Questions');
   const handleFilter = (link) => {
     setactive(link);
   }
@@ -145,16 +158,23 @@ export default function HomePage( {username} ) {
             <>
               <div className="container">
                 <form id="myUniqueFormId" onSubmit={handleSubmit}>
-                  <textarea
-                    value={textValue}
-                    onChange={handleTextareaChange}
-                    placeholder="Enter context here"
-                  />
-
-                  <div>
-                        <h1>OR</h1>
-                        <FileUpload handleFileUpload={handleFileUpload} />
+                  <div className="inputContextContainer">
+                    <div>
+                      <textarea
+                        value={textValue}
+                        onChange={handleTextareaChange}
+                        placeholder="Enter context here"
+                      />
+                    </div>
+                    <div className="OR">
+                      <h1>OR</h1>
+                    </div>
+                    
+                    <div>
+                      <FileUpload handleFileUpload={handleFileUpload} />
+                    </div>
                   </div>
+                  
 
                   <div>
                     <button type="submit">Submit</button>
@@ -178,38 +198,49 @@ export default function HomePage( {username} ) {
               </div>  
             </> :
             <>
-            {/* practice question */}
-            <div className="dropdownContainer">
-                    <Dropdown
-                        label="Discipline"
-                        options={['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Electronic Engineering']}
-                        value={discipline}
-                        onChange={handleDisciplineChange}
-                    />
-                    {discipline && (
-                        <Dropdown
-                            label="Core Subject"
-                            options={coreSubjectsData[discipline]}
-                            value={coreSubject}
-                            onChange={(value) => setCoreSubject(value)}
-                        />
-                    )}
-                    {coreSubject && (
-                        <Dropdown
-                            label="Topic"
-                            options={topicsData[coreSubject]}
-                            value={topic}
-                            onChange={(value) => setTopic(value)}
-                        />
-                    )}
-                    <button type="submit" onClick={getPractiseQuestions}>Submit</button>
-                  </div>
-            </>
-          }
-          
-          
+              {/* practice question */}
+              <div className="dropdownContainer">
+                <Dropdown
+                  label="Discipline"
+                  options={['Computer Science', 'Mechanical Engineering', 'Civil Engineering', 'Electronic Engineering']}
+                  value={discipline}
+                  onChange={handleDisciplineChange}
+                />
+                {discipline && (
+                  <Dropdown
+                    label="Core Subject"
+                    options={coreSubjectsData[discipline]}
+                    value={coreSubject}
+                    onChange={(value) => setCoreSubject(value)}
+                  />
+                )}
+                {coreSubject && (
+                  <Dropdown
+                    label="Topic"
+                    options={topicsData[coreSubject]}
+                    value={topic}
+                    onChange={(value) => setTopic(value)}
+                  />
+                )}
+                <button type="submit" onClick={getPractiseQuestions}>Submit</button>
+              </div>
 
-          
+              <div className="ResponseContainer">
+                  <div className="ResponseSet">
+                    {
+                      data && data.map((pred, index) => (
+                        <div className="ResponseTile">
+                          <p><strong>Question : </strong>{pred.Question}</p>
+                          <p><strong>Answer : </strong>{pred.Answer}</p>
+                        </div>
+                      ))
+                    }
+
+                  </div>
+                </div>
+
+            </>
+          }       
         </>:
         <>
             <h2>Log in</h2>
