@@ -7,18 +7,6 @@ import Link from 'next/link'
 import QAGenerator from "./questionGenerator";
 import PracticeQuestions from "./practiceQuestions";
 
-const coreSubjectsData = {
-  'Computer Science': ['Algorithms', 'Data Structures', 'Computer Networks'],
-  'Mechanical Engineering': ['Thermodynamics', 'Mechanics', 'Fluid Dynamics'],
-  'Civil Engineering': ['Thermodynamics', 'Mechanics', 'Fluid Dynamics'],
-  'Electric Engineering': ['Power System', 'Electrical Machine', 'Control Systems, Digital Signal Processing']
-  
-};
-
-const topicsData = {
-  'Algorithms': ['Sorting', 'Searching', 'Graph Algorithms'],
-  'Data Structures': ['Arra    ys', 'Linked Lists', 'Trees'],
-};
 
 
 const links = ['Practice Questions', 'Question Generator'];
