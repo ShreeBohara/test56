@@ -6,7 +6,7 @@ import Response from "./response";
 
 const practiceQuestions = () => {
   const coreSubjectsData = {
-    'Computer Science': ['Object-Oriented Programming (OOPs)', 'Operating Systems', 'Computer Networks','Database Management System (DBMS)','	Data Structures and Algorithms'],
+    'Computer Science': ['Object-Oriented Programming (OOPs)', 'Operating Systems', 'Computer Networks','Database Management System (DBMS)','Data Structures and Algorithms'],
     'Mechanical Engineering': ['Thermodynamics', 'Mechanics', 'Fluid Dynamics'],
     'Civil Engineering': ['Structural Engineering','Transportation Engineering', 'Environmental Engineering', 'Surveying and Geomatics'],
     'Electronics and telecommunications engineering': ['Digital Communication', 'Power Devices & Circuits', 'VLSI', 'Cellular Networks']
@@ -282,8 +282,8 @@ const practiceQuestions = () => {
       try {
         const response = await axios.post('http://localhost:5000/practice', {discipline,coreSubject,topic});
         // setPracticeQA(response.data.questions);
-        console.log('Response P:', response.data.topic_object.questions); // Assuming the response contains data
-        const data = response.data.topic_object.questions
+        console.log('Response P:', response.data.questions); // Assuming the response contains data
+        const data = response.data.questions
         setPracticeQA(data);
         // Handle response data as needed
       } catch (error) {

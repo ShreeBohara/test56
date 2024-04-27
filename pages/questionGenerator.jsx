@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from "react";
 import FileUpload from "./api/FileUpload";
 import Response from "./response";
-
+import axios from 'axios';
 
 const questionGenerator = () => {
 
@@ -28,7 +28,7 @@ const questionGenerator = () => {
         try {
             const response = await axios.post('http://localhost:5000/predict', {selectedOption,final});
             setPrediction(response.data);
-            console.log('Response:', response.data); // Assuming the response contains data
+            console.log('Response:', response.data.prediction); // Assuming the response contains data
             // Handle response data as needed
           } catch (error) {
             console.error('Error:', error);
@@ -71,6 +71,7 @@ const questionGenerator = () => {
                     value={textValue}
                     onChange={handleTextareaChange}
                     placeholder="Enter context here"
+                    style={{"width":"600px"}}
                     />
                 </div>
                 <div className="OR">
@@ -81,7 +82,7 @@ const questionGenerator = () => {
                     <FileUpload handleFileUpload={handleFileUpload} />
                 </div>
             </div>
-            <div>
+            <div className='buttons'>
                 <button type="submit">Submit</button>
                 <button className="clearButton" onClick={clearClicked}>Clear</button>
             </div>
@@ -89,7 +90,7 @@ const questionGenerator = () => {
         {
             Prediction && (
             <Response 
-                data={Prediction.predict}
+                data={Prediction.prediction}
             />
             )
         }

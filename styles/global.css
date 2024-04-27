@@ -195,3 +195,8 @@ button{
   text-transform: capitalize;
   width: fit-content;
 }
+
+.buttons{
+  margin-left: 200px;
+  margin-top: 20px;
+}
