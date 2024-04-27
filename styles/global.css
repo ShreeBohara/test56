@@ -73,7 +73,6 @@ input[type=text]:focus,input[type=password]:focus {
   color: var(--red);
 }
 
-
 form{
   display: flex;
   flex-direction: column;
@@ -124,30 +123,18 @@ button{
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .ResponseSet{
-    width: 80%;
-    padding: 50px;
-    min-height: 100px;
-    border-color: black;
-    border-width: 2px;
-    border-radius: 5px;
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;  
-}
-.ResponseTile{
-  width: 300px;
+  width: 80%;
+  padding: 50px;
   min-height: 100px;
-  border: 2px solid black;
+  border-color: black;
+  border-width: 2px;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-}
-.ResponseTile p{
-  color: #121212;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .dropdownContainer{
@@ -200,11 +187,11 @@ button{
 }
 .additional-style {
   white-space: nowrap;
-  border-radius: 0.5rem; /* Assuming default border-radius */
-  padding-left: 2rem; /* Assuming default padding */
-  padding-right: 2rem; /* Assuming default padding */
-  padding-top: 0.625rem; /* 2.5 / 4 */
-  padding-bottom: 0.625rem; /* 2.5 / 4 */
+  border-radius: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
   text-transform: capitalize;
   width: fit-content;
 }
