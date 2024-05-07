@@ -14,17 +14,17 @@ const responseCard = ({data}) => {
                     <Card variant="outlined">
                         <React.Fragment>
                             <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="red" gutterBottom>
+                                <Typography sx={{ fontSize: 16 , fontWeight: "bold"}} color="red" gutterBottom>
                                     Question
                                 </Typography>
 
                                 <Typography variant="h6" component="div">
                                     {prac.question}
                                 </Typography>
-                                <Typography sx={{ mt: 1.5 }} color="green">
+                                <Typography sx={{ mt: 1.5 , fontSize: 16, fontWeight: "bold"}} color="green">
                                     Answer
                                 </Typography>
-                                <Typography variant="body2">
+                                <Typography variant="h6">
                                     {prac.answer}
                                     <br />
                                 </Typography>

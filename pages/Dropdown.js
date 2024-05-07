@@ -5,6 +5,8 @@ const Dropdown = ({ label, options = [], value, onChange }) => {
     return (
         <div className="Dropdown">
             <label>{label}:</label>
+            {label === 'Discipline' ? <p>Discipline</p> : null}
+            
             <select value={value} onChange={(e) => onChange(e.target.value)}>
                 <option value="">Select {label}</option>
                 {options.map(option => (
