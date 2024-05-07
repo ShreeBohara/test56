@@ -2,10 +2,11 @@ import React from 'react';
 
 
 const Dropdown = ({ label, options = [], value, onChange }) => {
+    const dropdownClassName = label == 'Discipline' ? 'DropdownRequired' : 'Dropdown';
     return (
-        <div className="Dropdown">
+        <div className={dropdownClassName}>
             <label>{label}:</label>
-            {label === 'Discipline' ? <p>Discipline</p> : null}
+            {label === 'Discipline' ? <p className='Required'>*Required</p> : null}
             
             <select value={value} onChange={(e) => onChange(e.target.value)}>
                 <option value="">Select {label}</option>
